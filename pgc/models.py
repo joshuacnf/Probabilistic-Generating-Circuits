@@ -1,5 +1,3 @@
-# simple models
-
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, TensorDataset
@@ -62,7 +60,7 @@ class Simple(nn.Module):
 
         return y
 
-class PGC(nn.Module):
+class SimplePGC(nn.Module):
     def __init__(self, n, partition, x=None):
         super().__init__()
 

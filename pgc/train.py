@@ -160,13 +160,8 @@ def partition_variables(trainx, max_cluster_size):
 
     return partition
 
-def nll(y, model=None):
+def nll(y):
     ll = -torch.sum(y)
-    # if model is not None:
-    #     mse = nn.MSELoss()
-    #     model_params = torch.cat([x.view(-1) for x in model.parameters()])
-    #     zeros = torch.zeros(model_params.shape).to(device)
-    #     loss = ll + mse(model_params, zeros)
     return ll
 
 def avg_ll(model, dataset_loader):
@@ -204,7 +199,7 @@ def train_model(model, train, valid, test,
         for x_batch in train_loader:
             x_batch = x_batch.to(device)
             y_batch = model(x_batch)
-            loss = nll(y_batch, model)
+            loss = nll(y_batch)
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -248,7 +243,7 @@ def main():
         models = []
         for i in range(0, args.component_num):
             if args.max_cluster_size > 1:
-                component = PGC(m, partition, x=train.x.clone())
+                component = SimplePGC(m, partition, x=train.x.clone())
             else:
                 component = LEnsemble(m)
             models.append(component)

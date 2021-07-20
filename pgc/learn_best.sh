@@ -1,16 +1,15 @@
 #!/bin/bash
 
+twenty_datasets=("nltcs 1 20" "kdd 2 20" "plants 5 20" "baudio 5 20" "jester 5 20" \
+                "bnetflix 2 20" "accidents 1 20" "tretail 5 10" "pumsb_star 2 20" "dna 1 4" \
+                "kosarek 5 10" "msweb 7 10" "book 5 10" "tmovie 5 20" "cwebkb 5 20" "cr52 5 20" \
+                "c20ng 5 10" "bbc 5 20" "ad 7 1" "msnbc 1 10")
+
 amzn_datasets=("amzn_apparel 5 7" "amzn_bath 5 7" "amzn_bedding 2 10" "amzn_carseats 1 10" \
             "amzn_decor 1 10" "amzn_diaper 5 10" "amzn_feeding 5 10" "amzn_furniture 2 4" \
             "amzn_gear 2 7" "amzn_gifts 2 4" "amzn_health 2 4" "amzn_media 2 10" \
             "amzn_moms 1 7" "amzn_pottytrain 1 1" "amzn_safety 2 7" \
             "amzn_strollers 2 10" "amzn_toys 5 7")
-
-twenty_datasets=("nltcs 1 20" "kdd 2 20" "plants 5 20" "baudio 5 20" "jester 5 20" \
-                "bnetflix 2 20" "accidents 1 20" "tretail 5 10" "pumsb_star 2 20" "dna 1 4" \
-                "kosarek 5 10" "msweb 7 10" "book 5 10" "tmovie 5 20" "cwebkb 5 20" "cr52 5 20" \
-                "c20ng 5 10" "bbc 5 20" "ad 7 1" "msnbc 1 10")
-                
 
 for params in "${amzn_datasets[@]}"
 do

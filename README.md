@@ -18,17 +18,18 @@ distributions over <em>binary</em> random variabels.
 # Setup 
 
 This will clone the repo, install a python virtual env (requires python 3.8), and
-install the required packages.
+install the required packages. You may want to skip `./setup.sh` if you already
+have your environment set up.
 
     git clone https://github.com/joshuacnf/Probabilistic-Generating-Circuits.git
     cd Probabilistic-Generating-Circuits
-    ./setup.sh
+    ./setup.sh [path to create your virtual env]
 
 # Experiments
 
 The `data` folder contains the datasets for the two density estimation benchmarks used in the paper: the Twenty Datasets and the Amazon Baby Registries. To reproduce the experiment results on both benchmarks, please run:
 
-    source ./pgc_venv/bin/activate
+    source [path to virtual env]/pgc_venv/bin/activate
     cd pgc
     mkdir logs models
     ./learn_best.sh

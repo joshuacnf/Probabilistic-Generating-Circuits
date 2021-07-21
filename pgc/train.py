@@ -53,9 +53,9 @@ def init():
     arg_parser.add_argument('--lr', default=0.001, type=float)
     arg_parser.add_argument('--weight_decay', default=1.0, type=float)
     arg_parser.add_argument('--component_num', default=10, type=int)
-    arg_parser.add_argument('--max_cluster_size', default=12, type=int)
+    arg_parser.add_argument('--max_cluster_size', default=10, type=int)
     arg_parser.add_argument('--log_file', default='log.txt', type=str)
-    arg_parser.add_argument('--output_model_path', default='', type=str)
+    arg_parser.add_argument('--output_model_file', default='model.pt', type=str)
 
     args = arg_parser.parse_args()
 
@@ -178,7 +178,7 @@ def avg_ll(model, dataset_loader):
 
 def train_model(model, train, valid, test,
                 lr, weight_decay, batch_size, max_epoch,
-                log_file, output_model_path, dataset_name):
+                log_file, output_model_file, dataset_name):
     valid_loader, test_loader = None, None
     train_loader = DataLoader(dataset=train, batch_size=batch_size, shuffle=True)
     if valid is not None:
@@ -208,15 +208,15 @@ def train_model(model, train, valid, test,
         # compute likelihood on train, valid and test
         train_ll = avg_ll(model, train_loader)
         valid_ll = avg_ll(model, valid_loader)
-        test_ll = avg_ll(model, test_loader)
+        # test_ll = avg_ll(model, test_loader)
 
         print('Dataset {}; Epoch {}; train ll: {}; valid ll: {}; test ll: {}'.format(dataset_name, epoch, train_ll, valid_ll, test_ll))
 
         with open(log_file, 'a+') as f:
             f.write('{} {} {} {}\n'.format(epoch, train_ll, valid_ll, test_ll))
 
-        if output_model_path != '' and valid_ll > max_valid_ll:
-            torch.save(model, output_model_path)
+        if output_model_file != '' and valid_ll > max_valid_ll:
+            torch.save(model, output_model_file)
             max_valid_ll = valid_ll
 
 
@@ -236,7 +236,7 @@ def main():
     model = None
     if args.model == 'DPP':
         model = LEnsemble(m)
-    if args.model == 'SUM_DPP_MIX':
+    if args.model == 'SimplePGC':
         partition = partition_variables(train.x.tolist(), args.max_cluster_size)
         print(partition)
 
@@ -256,7 +256,7 @@ def main():
     train_model(model, train=train, valid=valid, test=test,
         lr=args.lr, weight_decay=args.weight_decay,
         batch_size=args.batch_size, max_epoch=args.max_epoch,
-        log_file=args.log_file, output_model_path=args.output_model_path,
+        log_file=args.log_file, output_model_file=args.output_model_file,
         dataset_name=args.dataset)
 
 if __name__ == '__main__':

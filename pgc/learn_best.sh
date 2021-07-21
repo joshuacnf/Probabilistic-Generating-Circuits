@@ -11,13 +11,15 @@ amzn_datasets=("amzn_apparel 5 7" "amzn_bath 5 7" "amzn_bedding 2 10" "amzn_cars
             "amzn_moms 1 7" "amzn_pottytrain 1 1" "amzn_safety 2 7" \
             "amzn_strollers 2 10" "amzn_toys 5 7")
 
-for params in "${amzn_datasets[@]}"
+all_datasets=("${amzn_datasets[@]}" "${twenty_datasets[@]}")
+
+for params in "${all_datasets[@]}"
 do
     set -- $params
     dataset=$1
     cluster_size=$2
     component_num=$3
-    
+
     log_file_name="logs/SimplePGC_${cluster_size}_${component_num}_${dataset}.txt"
     output_model_file="models/SimplePGC_${dataset}.pt"
     if [ -e $log_file_name ]

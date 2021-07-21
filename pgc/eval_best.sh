@@ -10,8 +10,9 @@ twenty_datasets=("nltcs" "kdd" "plants" "baudio" "jester" \
                 "kosarek" "msweb" "book" "tmovie" "cwebkb" "cr52" \
                 "c20ng" "bbc" "ad" "msnbc")
 
+all_datasets=("${amzn_datasets[@]}" "${twenty_datasets[@]}")
 
-for dataset in "${amzn_datasets[@]}"
+for dataset in "${all_datasets[@]}"
 do
     model_path="models/SimplePGC_${dataset}.pt"
     if [ -e $model_path ]

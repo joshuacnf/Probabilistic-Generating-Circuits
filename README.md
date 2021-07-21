@@ -6,8 +6,7 @@ H. Zhang, B. Juba, G. Van den Broeck,
 **Probabilistic Generating Circuits**,
 *ICML 2021*.
 
-SimplePGCs are one of the simplest
-class of probabilistic generating circuits that are neither sum-product networks (SPNs) nor determinantal point processes (DPPs).
+SimplePGCs are one of the simplest class of probabilistic generating circuits that are neither sum-product networks (SPNs) nor determinantal point processes (DPPs).
 
 
 # Setup 
@@ -24,18 +23,23 @@ install the required packages.
 To reproduce the experiment results in the paper:
 
 We first learn the SimplePGC models:
+
     cd pgc
     mkdir logs models
     ./learn_best.sh
 
-Then we evaluate the stored SimplePGC models via:
-    ./eval_best.sh
+Then we evaluate the stored SimplePGC models on the test sets via
+
+    ./eval_best.sh,
+
+which outputs the average
 
 # Try your own data
-Suppose we're given custom dataset 
+Suppose we want to model our own dataset custom_dataset; first,
+we need to add it to
 
     python3.8 train.py --dataset_path ../data/
-        --dataset $dataset --device cuda --cuda_core 0 
+        --dataset dataset --device cuda --cuda_core 0 
         --model SimplePGC --max_epoch 50 \
         --batch_size 128 --lr 0.001 --weight_decay 0.001 \
         --max_cluster_size $cluster_size --component_num $component_num \

@@ -17,17 +17,18 @@ do
     dataset=$1
     cluster_size=$2
     component_num=$3
+    
     log_file_name="logs/SimplePGC_${cluster_size}_${component_num}_${dataset}.txt"
-    output_model_path="models/SimplePGC_${dataset}.pt"
+    output_model_file="models/SimplePGC_${dataset}.pt"
     if [ -e $log_file_name ]
     then
         echo "$log_file_name exists"
     else
         echo "Training on ${params}"
         python3.8 train.py --dataset_path /space/hzhang19/Density-Estimation-Datasets/datasets/ \
-                --dataset $dataset --device cuda --cuda_core 0 --model SUM_DPP_MIX --max_epoch 50 \
+                --dataset $dataset --device cuda --cuda_core 0 --model SimplePGC --max_epoch 50 \
                 --batch_size 128 --lr 0.001 --weight_decay 0.001 \
                 --max_cluster_size $cluster_size --component_num $component_num \
-                --log_file $log_file_name --output_model_path $output_model_path
+                --log_file $log_file_name --output_model_file $output_model_file
     fi
 done

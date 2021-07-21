@@ -30,6 +30,7 @@ class DatasetFromFile(Dataset):
 
     def __len__(self):
         return len(self.x)
+        
 
 def init():
     global device
@@ -46,7 +47,6 @@ def init():
     arg_parser.add_argument('--cuda_core', default='0', type=str)
     arg_parser.add_argument('--model_path', default='', type=str)
     arg_parser.add_argument('--batch_size', default=8, type=int)
-    arg_parser.add_argument('--output_file', default='', type=str)
 
     args = arg_parser.parse_args()
 
@@ -54,6 +54,7 @@ def init():
     os.environ["CUDA_VISIBLE_DEVICES"] = args.cuda_core
 
     return args
+
 
 def load_data(dataset_path, dataset,
             load_train=True, load_valid=True, load_test=True):
@@ -97,24 +98,15 @@ def avg_ll(model, dataset_loader):
     return avg_ll
 
 
-def evaluate_model_on_data(model, data_loader, output_file):
-    with open(output_file, 'w') as f:
-        test_example_lls = example_lls(model, data_loader)
-        for x in test_example_lls:
-            f.write('{}\n'.format(x))
-
-
 def evaluate_model(model, test,
-                batch_size, output_file, dataset_name):
-    test_loader = DataLoader(dataset=test, batch_size=batch_size, shuffle=True)    
+                batch_size, dataset_name):
+    test_loader = DataLoader(dataset=test, batch_size=batch_size, shuffle=True)
 
     model = model.to(device)
     model.eval()
 
-    with open(output_file, 'w') as f:
-        test_example_lls = example_lls(model, test_loader)
-        for x in test_example_lls:
-            f.write('{}\n'.format(x))
+    test_ll = avg_ll(model, test_loader)
+    print(f'{dataset_num} {test_ll}')
 
 
 def main():
@@ -122,12 +114,10 @@ def main():
 
     _, _, test = load_data(args.dataset_path, args.dataset)
 
-    print('test: {}'.format(test.x.shape))
-
     model = torch.load(args.model_path)
 
     evaluate_model(model, test,
-        args.batch_size, args.output_file, args.dataset)
+        args.batch_size, args.dataset)
 
 if __name__ == '__main__':
     main()

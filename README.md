@@ -25,15 +25,16 @@ install the required packages.
 
 # Experiments
 
-The `data` folder contains the datasets for the two density estimation benchmarks used in the paper: the Twenty Datasets and the Amazon Baby Registries. To reproduce the experiment results, run
+The `data` folder contains the datasets for the two density estimation benchmarks used in the paper: the Twenty Datasets and the Amazon Baby Registries. To reproduce the experiment results on both benchmarks, please run:
 
+    source ./pgc_venv/bin/activate
     cd pgc
     mkdir logs models
     ./learn_best.sh
 
-to learn SimplePGC for all datasets. Note that learning on all 
-datasets may take a long time, and you can choose to learn SimplePGC for only a few 
-datasets by modifying the script `learn_best.sh`.
+Note that learning SimplePGCs for all 
+datasets may take a long time, and you can choose to reproduce the results on only a few
+of the datasets by modifying the script `learn_best.sh`.
 
 Then we evaluate the stored SimplePGC models on the test sets via
 

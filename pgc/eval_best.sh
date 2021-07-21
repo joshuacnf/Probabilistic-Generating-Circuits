@@ -16,10 +16,9 @@ do
     model_path="models/SimplePGC_${dataset}.pt"
     if [ -e $model_path ]
     then
-        echo "Evaluating on ${dataset} test set..."
         python3.8 eval.py --dataset_path ../data/ \
                 --dataset $dataset --device cuda --cuda_core 0 \
-                --model_path $model_path --batch_size 128
+                --model_path $model_path --batch_size 128 
     else
         echo "Model for ${dataset} does not exist"
     fi

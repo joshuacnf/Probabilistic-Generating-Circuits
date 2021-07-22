@@ -208,7 +208,7 @@ def train_model(model, train, valid, test,
         # compute likelihood on train, valid and test
         train_ll = avg_ll(model, train_loader)
         valid_ll = avg_ll(model, valid_loader)
-        # test_ll = avg_ll(model, test_loader)
+        test_ll = avg_ll(model, test_loader)
 
         print('Dataset {}; Epoch {}; train ll: {}; valid ll: {}; test ll: {}'.format(dataset_name, epoch, train_ll, valid_ll, test_ll))
 

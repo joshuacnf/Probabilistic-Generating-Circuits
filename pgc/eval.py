@@ -30,7 +30,7 @@ class DatasetFromFile(Dataset):
 
     def __len__(self):
         return len(self.x)
-        
+
 
 def init():
     global device
@@ -106,7 +106,7 @@ def evaluate_model(model, test,
     model.eval()
 
     test_ll = avg_ll(model, test_loader)
-    print(f'{dataset_num} {test_ll}')
+    print(f'{dataset_name} {test_ll}')
 
 
 def main():

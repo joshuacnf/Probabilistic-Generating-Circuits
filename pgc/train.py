@@ -11,7 +11,7 @@ import os
 import math
 import argparse
 
-from models_simple import *
+from models import *
 
 device = 'cuda'
 
